@@ -8,6 +8,6 @@ Students
 Name             | Gatorlink
 -----------------|----------
 Tahsis Claus     | tsclaus
-Krystal Mejia    | 
+Krystal Mejia    | krystalmejia24
 Sam Sewall       | slsewall
 Forrest Voight   | forrestv
