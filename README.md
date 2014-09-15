@@ -1,4 +1,4 @@
-UF CEN Appointment Manager
+UF CISE Appointment Manager
 ==========================
 
 
