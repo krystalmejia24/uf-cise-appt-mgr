@@ -111,6 +111,23 @@ module.exports = function(db) {
 
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./public')));
+	
+	app.route('/auth/signout').get(function(req, res) {
+		req.logout();
+		res.send('You have been signed out.');
+	});
+	// Require login everywhere
+	app.use(function(req, res, next) {
+		if (!req.isAuthenticated()) {
+		            return passport.authenticate('saml',
+		            {
+		                    successRedirect : '/',
+		                    failureRedirect : '/',
+		            })(req, res, next);
+		}
+
+		next();
+	});
 
 	// Globbing routing files
 	config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {

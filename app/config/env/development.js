@@ -5,6 +5,11 @@ module.exports = {
 	app: {
 		title: 'uf-cise-appt-mgr - Development Environment'
 	},
+	saml: {
+		path : '/',
+		entryPoint : 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+		issuer : 'passport-saml'
+	},
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
 		options: {
