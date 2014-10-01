@@ -21,8 +21,7 @@ var TimeslotSchema = new Schema({
 		default: Date.now
 	},
 	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
+		type: String
 	}
 });
 

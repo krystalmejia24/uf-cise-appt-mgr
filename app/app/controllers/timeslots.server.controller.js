@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var timeslot = new Timeslot(req.body);
-	timeslot.user = req.user;
+	timeslot.user = req.user.id;
 
 	timeslot.save(function(err) {
 		if (err) {
@@ -72,7 +72,7 @@ exports.delete = function(req, res) {
 /**
  * List of Timeslots
  */
-exports.list = function(req, res) { Timeslot.find().sort('-created').populate('user', 'displayName').exec(function(err, timeslots) {
+exports.list = function(req, res) { Timeslot.find().sort('-created').exec(function(err, timeslots) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,7 +86,7 @@ exports.list = function(req, res) { Timeslot.find().sort('-created').populate('u
 /**
  * Timeslot middleware
  */
-exports.timeslotByID = function(req, res, next, id) { Timeslot.findById(id).populate('user', 'displayName').exec(function(err, timeslot) {
+exports.timeslotByID = function(req, res, next, id) { Timeslot.findById(id).exec(function(err, timeslot) {
 		if (err) return next(err);
 		if (! timeslot) return next(new Error('Failed to load Timeslot ' + id));
 		req.timeslot = timeslot ;
@@ -98,7 +98,7 @@ exports.timeslotByID = function(req, res, next, id) { Timeslot.findById(id).popu
  * Timeslot authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.timeslot.user.id !== req.user.id) {
+	if (req.timeslot.user !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
